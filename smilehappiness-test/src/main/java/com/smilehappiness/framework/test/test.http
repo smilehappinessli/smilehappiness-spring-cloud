@@ -1,0 +1,4 @@
+GET http://192.168.23.98:6688/apiLogger/getApiLoggerInfoByRequestUrlAndMethodName?requestUrl=apiLogger&methodName=getApiLoggerInfoByRequestUrlAndMethodName
+Accept: application/json
+
+###

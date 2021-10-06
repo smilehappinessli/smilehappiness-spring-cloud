@@ -1,0 +1,171 @@
+server:
+  port: 6688
+
+
+spring:
+  # DataSource Config
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/my_shares?useUnicode=true&useSSL=false&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: xxx
+    #HikariCP数据库连接池（连接池需要根据实际情况进行配置）
+    hikari:
+      #连接池名称
+      pool-name: smilehappiness_HikariCP
+      #最小空闲连接数量
+      minimum-idle: 10
+      #空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 120000
+      #连接池最大连接数，默认是10
+      maximum-pool-size: 20
+      #此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      #数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+
+  # Redis Config
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # ip
+    host: localhost
+    # Redis端口，新版redis可能不需要这种方式，而是直接ip:端口连接
+    port: 16379
+    # Redis服务器连接密码（默认为空）
+    password: 123456789@.
+    # 连接超时时间（毫秒）
+    timeout: 30000
+    #sentinel/cluster/single
+    mode: single
+    ######### 连接池配置 #########
+    pool:
+      maxActive: 8
+      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      maxWait: -1
+      # 连接池中的最大空闲连接
+      maxIdle: 8
+      # 连接池中的最小空闲连接
+      minIdle: 0
+      connTimeout: 3000
+      soTimeout: 3000
+      size: 10
+    ######### 单机配置 #########
+    single:
+      address: localhost:16379
+#    ######### 集群配置 #########
+#    cluster:
+#      scanInterval: 1000
+#      nodes:
+#      readMode: SLAVE
+#      retryAttempts: 3
+#      failedAttempts: 3
+#      slaveConnectionPoolSize: 64
+#      masterConnectionPoolSize: 64
+#      retryInterval: 1500
+#    ######### 哨兵配置 #########
+#    sentinel:
+#      master: business-master
+#      nodes:
+#      masterOnlyWrite: true
+#      failMax: 3
+
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.smilehappiness.**.entity,com.smilehappiness.**.mapper
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+    object-wrapper-factory: com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory
+    use-generated-keys: true
+    default-executor-type: reuse
+    defaultStatementTimeout: 1000
+    jdbc-type-for-null: null
+    call-setters-on-nulls: true
+  global-config:
+    db-config:
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  eureka:
+    enabled: true
+
+#Spring Boot使用Feign客户端调用远程服务时出现：timed-out and no fallback available，failed and no fallback available，但是业务端服务已经成功被调用了多半是熔断器超时导致的，可以修改yml，如下：
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+feign:
+  hystrix:
+    enabled: true
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+    max-connections: 200 # 默认值
+    max-connections-per-route: 50 # 默认值
+  client:
+    config:
+      default:
+        connect-timeout: 60000
+        read-timeout: 60000
+
+swagger:
+  groupName: ${spring.application.name}
+  enabled: true
+  title: 后台接口文档
+  base-package: com.smilehappiness
+  description: 后台管理框架
+  license: Apache License, Version 2.0
+  license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+  #接口文档地址，后续可以链接接口文档服务地址
+  terms-of-service-url: http://localhost:6666/doc.html
+  contact: xxx@163.com
+
+# 钉钉预警通知
+earlyWarning:
+  notice:
+    # 一般预警通知群
+    generalDingNoticeUrl: xxxxx
+    # 高频异常通知预警
+    errorDingNoticeUrl: xxxxx
+
+
+xxl:
+  job:
+    ### 执行器通讯TOKEN [选填]：非空时启用；
+    accessToken:
+    admin:
+      ### 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
+      # 这里的9999端口与部署的xxl-job-admin服务配置的端口一致即可
+      addresses: http://192.168.2.195:9999/xxl-job-admin
+    executor:
+      ### 执行器地址
+      address:
+      ### 执行器AppName [选填]：执行器心跳注册分组依据；为空则关闭自动注册
+      appname: smilehappiness-spring-cloud
+      ### 执行器IP [选填]：默认为空表示自动获取IP，多网卡时可手动设置指定IP，该IP不会绑定Host仅作为通讯实用；地址信息用于 "执行器注册" 和 "调度中心请求并触发任务"；
+      ip:
+      ### 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999，单机部署多个执行器时，注意要配置不同执行器端口；
+      port: 1235
+      ### 执行器运行日志文件存储磁盘路径 [选填] ：需要对该路径拥有读写权限；为空则使用默认路径；
+      logpath: /usr/local/logs/smilehappiness-spring-cloud-server/xxl-job
+      ### 执行器日志保存天数 [选填] ：值大于3时生效，启用执行器Log文件定期清理功能，否则不生效；
+      logretentiondays: 30

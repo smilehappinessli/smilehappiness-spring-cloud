@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>smilehappiness-spring-cloud</artifactId>
+    <packaging>pom</packaging>
+    <name>smilehappiness-spring-cloud</name>
+    <description>微服务项目脚手架</description>
+
+    <parent>
+        <groupId>com.smilehappiness</groupId>
+        <artifactId>smilehappiness-architecture</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-cache</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>HdrHistogram</artifactId>
+                    <groupId>org.hdrhistogram</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-early-warning-notice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-exception</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-limit-api</artifactId>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-mq</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-operation-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-schedule</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-swagger-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-utils</artifactId>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>smilehappiness-api-client</module>
+        <module>smilehappiness-commons</module>
+        <module>smilehappiness-controller</module>
+        <module>smilehappiness-dao</module>
+        <module>smilehappiness-job</module>
+        <module>smilehappiness-model</module>
+        <module>smilehappiness-service</module>
+        <module>smilehappiness-start</module>
+        <module>smilehappiness-generator</module>
+        <module>smilehappiness-test</module>
+    </modules>
+
+</project>

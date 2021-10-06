@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smilehappiness.framework.mapper.ApiLoggerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smilehappiness.framework.entity.ApiLogger">
+        <result column="id" property="id" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="updated_time" property="updatedTime" />
+        <result column="delete_by" property="deleteBy" />
+        <result column="delete_time" property="deleteTime" />
+        <result column="is_delete" property="isDelete" />
+        <result column="version" property="version" />
+        <result column="remark" property="remark" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="request_url" property="requestUrl" />
+        <result column="method_name" property="methodName" />
+        <result column="class_name" property="className" />
+        <result column="request_type" property="requestType" />
+        <result column="biz_id" property="bizId" />
+        <result column="business_module_name" property="businessModuleName" />
+        <result column="operation_describe" property="operationDescribe" />
+        <result column="request_params" property="requestParams" />
+        <result column="request_ip" property="requestIp" />
+        <result column="response_str" property="responseStr" />
+        <result column="operation_take_time" property="operationTakeTime" />
+        <result column="error_message" property="errorMessage" />
+        <result column="udf_1" property="udf1" />
+        <result column="udf_2" property="udf2" />
+        <result column="udf_3" property="udf3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        created_by,
+        created_time,
+        updated_by,
+        updated_time,
+        delete_by,
+        delete_time,
+        is_delete,
+        version,
+        remark,
+        user_id, user_name, request_url, method_name, class_name, request_type, biz_id, business_module_name, operation_describe, request_params, request_ip, response_str, operation_take_time, error_message, udf_1, udf_2, udf_3
+    </sql>
+
+</mapper>

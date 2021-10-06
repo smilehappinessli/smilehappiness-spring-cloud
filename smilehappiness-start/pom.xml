@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.smilehappiness</groupId>
+        <artifactId>smilehappiness-spring-cloud</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>smilehappiness-start</artifactId>
+    <name>smilehappiness-start</name>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-controller</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-service</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-dao</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-job</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smilehappiness</groupId>
+            <artifactId>smilehappiness-api-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <!-- 打包 -->
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.12.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <!-- <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <mainClass>xxx.xxx.xxx.xxx</mainClass>
+                </configuration>-->
+            </plugin>
+        </plugins>
+
+        <!-- 将xml编译进Resources -->
+        <resources>
+            <resource>
+                <!--指定资源的位置（xml放在resources下，可以不用指定）-->
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <!-- xml放在java目录下-->
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.yaml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.md</include>
+                    <include>**/*.bat</include>
+                    <include>**/*.txt</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>
